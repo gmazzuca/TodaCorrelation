@@ -69,7 +69,10 @@ def one_step_evo(p,r,time_interval,time_step):
 
 def verlet(p,r,dt):
     ''' step of verlet algorith, good reference https://www.unige.ch/~hairer/poly_geoint/week2.pdf 
-    Slightly modificed in order to work with the variables p_j,r_j'''
+    Slightly modificed in order to work with the variables p_j,r_j
+    p,r = initial condition
+    dt = delta t
+    '''
 
     r_exp = np.exp(-r)
     r_exp_diff = np.ediff1d(r_exp, to_begin = r_exp[0] - r_exp[-1])
@@ -88,13 +91,21 @@ def verlet(p,r,dt):
 
 @vectorize([float64(float64,float64,float64),float32(float32,float32,float32)])
 def verlet_p(p,dt,r_exp_diff):
-    ''' auxiliary function to vectorize the verlet algorith '''
+    ''' auxiliary function to vectorize the verlet algorith
+    p = initial condition on velocities
+    dt = delta t
+    r_exp_diff = vector of the differences exp(r_{j+1}) - exp(r_j)
+    '''
     return p - 0.5*dt*r_exp_diff
 
 
 @vectorize([float64(float64,float64,float64),float32(float32,float32,float32)])
 def verlet_r(r,dt,p_diff):
-    ''' auxiliary function to vectorize the verlet algorith '''
+    ''' auxiliary function to vectorize the verlet algorith 
+    r = initial condition on strech
+    dt = delta t
+    p_diff = vector of the differences p_{j+1} - p_j
+    '''
     return r + dt*p_diff
 
 
@@ -218,7 +229,7 @@ np.savetxt('Data/Toda_er_n_%d_beta_%0.1f_eta_%0.1f_time_%0.1f_%05d.dat' %(n,beta
 np.savetxt('Data/Toda_ep_n_%d_beta_%0.1f_eta_%0.1f_time_%0.1f_%05d.dat' %(n,beta,eta,time_snap[-1],numbering), corr_ep)
 
 
-
+# save time_snap
 if numbering == 0:
     np.savetxt('Data/Toda_timesnap_n_%d_beta_%0.1f_eta_%0.1f_time_%0.1f.dat' %(n,beta,eta,time_snap[-1]), time_snap )
 
