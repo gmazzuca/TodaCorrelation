@@ -1,5 +1,5 @@
 # TodaCorrelation
-Python file to compute the correlation functions of the Toda lattice, used in the paper: 
+Python file to compute the correlation functions of the Toda lattice, used in on ongoing scientific project.
 
 There are two different files that works independently.
 
