@@ -117,8 +117,8 @@ def sample_general_gibbs(particles, beta=1, eta = 1):
     '''
 
     over_beta_sqrt = 1/np.sqrt(beta)
-    p = np.random.normal(0,over_beta_sqrt, size = particles)                     
-    x = np.sqrt(np.random.chisquare(2*eta, size = particles))
+    p = np.random.default_rng().normal(0,over_beta_sqrt, size = particles)                     
+    x = np.sqrt(np.random.default_rng().chisquare(2*eta, size = particles))
     r = -2*np.log(x*over_beta_sqrt/np.sqrt(2))
     
     return (p,r)
